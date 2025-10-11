@@ -9,26 +9,14 @@ function TodoForm({ addTodo }) {
     e.preventDefault();
     if (!title) return;
     addTodo({ title, dueDate, priority, completed: false });
-    setTitle('');
-    setDueDate('');
-    setPriority('Low');
+    setTitle(''); setDueDate(''); setPriority('Low');
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: 20, display: 'flex', gap: 10, justifyContent: 'center' }}>
-      <input
-        type="text"
-        placeholder="Todo..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <input
-        type="date"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
-      />
-      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+    <form className="todo-form" onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
+      <input type="text" placeholder="Todo..." value={title} onChange={e => setTitle(e.target.value)} required />
+      <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+      <select value={priority} onChange={e => setPriority(e.target.value)}>
         <option>Low</option>
         <option>Medium</option>
         <option>High</option>
