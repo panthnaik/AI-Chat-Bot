@@ -1,6 +1,6 @@
-# 🎃 Hacktoberfest 2025 – Project Name
+# Chat Bot
 
-Welcome to **Project Name**, an open-source project created for **Hacktoberfest 2025**!  
+Welcome to **Chat Bot**, an open-source project  
 We’re excited to collaborate, learn, and grow together. 🌱
 
 ---
