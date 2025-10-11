@@ -2,24 +2,38 @@ import React, { useState } from 'react';
 
 function TodoForm({ addTodo }) {
   const [title, setTitle] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [priority, setPriority] = useState('Low');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title) return;
-    addTodo(title);
+    addTodo({ title, dueDate, priority, completed: false });
     setTitle('');
+    setDueDate('');
+    setPriority('Low');
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
+    <form onSubmit={handleSubmit} style={{ marginBottom: 20, display: 'flex', gap: 10, justifyContent: 'center' }}>
       <input
         type="text"
-        placeholder="Enter todo..."
+        placeholder="Todo..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        style={{ padding: 10, width: '70%' }}
+        required
       />
-      <button type="submit" style={{ padding: 10 }}>Add</button>
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+      />
+      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+      </select>
+      <button type="submit">Add</button>
     </form>
   );
 }
