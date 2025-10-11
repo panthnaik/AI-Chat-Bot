@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
+import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -12,13 +13,11 @@ function App() {
     setTodos(res.data);
   };
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+  useEffect(() => { fetchTodos(); }, []);
 
   const addTodo = async (todo) => {
     const res = await axios.post('http://localhost:5000/api/todos', todo);
-    setTodos([...todos, res.data]);
+    setTodos([res.data, ...todos]);
   };
 
   const deleteTodo = async (id) => {
@@ -28,10 +27,8 @@ function App() {
 
   const toggleComplete = async (id) => {
     const todo = todos.find(t => t._id === id);
-    const res = await axios.put(`http://localhost:5000/api/todos/${id}`, {
-      completed: !todo.completed
-    });
-    setTodos(todos.map(t => (t._id === id ? res.data : t)));
+    const res = await axios.put(`http://localhost:5000/api/todos/${id}`, { completed: !todo.completed });
+    setTodos(todos.map(t => t._id === id ? res.data : t));
   };
 
   const filteredTodos = todos.filter(todo => {
@@ -42,13 +39,19 @@ function App() {
   });
 
   return (
-    <div style={{ maxWidth: 700, margin: '50px auto', textAlign: 'center' }}>
+    <div className="container">
       <h1>Todo Manager</h1>
 
-      <div style={{ marginBottom: 20 }}>
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('completed')}>Completed</button>
-        <button onClick={() => setFilter('pending')}>Pending</button>
+      <div className="filter-buttons">
+        {['all','completed','pending'].map(f => (
+          <button
+            key={f}
+            className={filter === f ? 'active' : ''}
+            onClick={() => setFilter(f)}
+          >
+            {f.charAt(0).toUpperCase() + f.slice(1)}
+          </button>
+        ))}
       </div>
 
       <TodoForm addTodo={addTodo} />
