@@ -14,3 +14,7 @@ Click the **Fork** button at the top-right of this repo to make your own copy.
 ```bash
 git clone https://github.com/panthnaik/AI-Chat-Bot
 cd AI-Chat-Bot
+
+
+## 🧑‍💻 Contributors
+- Vedant Kharsekar ✨
